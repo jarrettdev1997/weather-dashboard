@@ -1,4 +1,5 @@
-
+var searchFormEl = document.querySelector("#search-form");
+var cityInputEl = document.querySelector("#city");
 
 var getUserCity = function(city) {
     //format url to accept city name input 
@@ -11,6 +12,24 @@ var getUserCity = function(city) {
     });
     
   });
-}
+};
 
-getUserCity("Philadelphia");
+var citySearchHandler = function(e){
+    e.preventDefault();
+    //console.log(e);
+
+    //get value from input
+    var city = cityInputEl.value.trim();
+
+    if (city) {
+        getUserCity(city);
+        cityInputEl.value = "";
+    } else {
+        alert("Please enter a city")
+    }
+};
+
+getUserCity("city");
+
+// event listeners
+searchFormEl.addEventListener("submit", citySearchHandler);
