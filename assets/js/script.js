@@ -1,5 +1,8 @@
 var searchFormEl = document.querySelector("#search-form");
 var cityInputEl = document.querySelector("#city");
+var weatherContainerEl = document.querySelector("#weather-container");
+var citySearchTerm = document.querySelector("#city-search-term");
+
 
 var getUserCity = function(city) {
     //format url to accept city name input 
@@ -8,7 +11,7 @@ var getUserCity = function(city) {
     //make request to url
     fetch(apiUrl).then(function(response){
     response.json().then(function(data){
-        console.log(data);
+        displayWeather(data, city);
     });
     
   });
@@ -27,6 +30,23 @@ var citySearchHandler = function(e){
     } else {
         alert("Please enter a city")
     }
+};
+
+var displayWeather = function(weather, cityName) {
+    //console.log(weather);
+    //console.log(cityName);
+
+    // check if api returned any weather data
+    if (weather.length === 0) {
+        citySearchTerm.textContent = "No weather data found.";
+        return;
+    }
+
+    // clears old content
+    weatherContainerEl.textContent = "";
+    citySearchTerm.textContent = cityName
+
+
 };
 
 getUserCity("city");
